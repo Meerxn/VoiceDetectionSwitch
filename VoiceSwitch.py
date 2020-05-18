@@ -29,7 +29,7 @@ def myCommand():
         command = myCommand();
     return command
 
-def assistant(command):
+def bulb(command):
  if 'on' in command:
      time.sleep(1)
      board.write('H')
