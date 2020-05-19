@@ -22,10 +22,40 @@ def send_command(number):
     ws.send(f"led0:{int(number)}")
     ws.close()
     exit()
-
-
-send_command(1)
+def larkBotListener():
+     r = listener.Recognizer()
+    with listener.Microphone() as source:
+        print('Listening') # Telling user that they are being heard
+        r.pause_threshold= 0.5 # Duration for pausing 
+        r.adjust_for_ambient_noise(source, duration=1) 
+        userSpeech = r.listen(source)
+    try: 
+         
+        command = r.recognize_google(userSpeech).lower()
     
+      
+    except LookupError: # speech is unintelligible
+        print("Could not understand audio")
+        command = myCommand();
+    return command
+def larkBotSpeaker(botSpeech):
+    os.system("say " + botSpeech)
+def larkCommandProcess(command):
+    if 'on' in command:
+        send_command(1)
+        larkBotSpeaker('The light is switched on')
+   
+         
+           
+    if 'off' in command:
+     larkSpeaks('switching off lights')
+     send_command(99)
+     sys.exit()    
+
+
+while True:
+    larkCommandProcess(larkBotListener())
+
 
 
 
