@@ -1,8 +1,8 @@
 from ws4py.client.threadedclient import WebSocketClient #Install ws4py
 import time, requests
-import speech_recognition as sr
-import os
-import sys
+import os # User os system import
+import sys 
+import speech_recognition as listener # Listener import
 
 esp8266host = "ws://192.168.0.151:81/"
 
