@@ -28,12 +28,7 @@ def lark(command):
     if 'hello' in command:
         
             larkSpeaks('hello there ')
-    if 'good' in command:
-             larkSpeaks('that is great ')
-          
-    if 'amazing' in command:
-           larkSpeaks(' happy birthday NANDAN ' )
-           webbrowser.open("https://www.youtube.com/watch?v=flMN4ME3isU")
+   
          
            
     if 'goodbye' in command:
