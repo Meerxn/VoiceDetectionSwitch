@@ -1,55 +1,45 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun May 17 21:09:09 2020
-
-@author: meeran
-"""
-
-import speech_recognition as sr
-import os
-import sys
-import serial # install pySerial 
-import time
-board = serial.Serial("your serial port krishang")
-
+import os # User os system import
+import sys 
+import speech_recognition as listener # Listener import
+import webbrowser
 def myCommand():
-    "listens for commands"
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print('Say something...')
-        r.pause_threshold = 1
-        r.adjust_for_ambient_noise(source, duration=1)
-        audio = r.listen(source)
-    try:
-        command = r.recognize_google(audio).lower()
-        print('You said: ' + command + '\n')
-    #loop back to continue to listen for commands if unrecognizable speech is received
-    except sr.UnknownValueError:
-        print('....')
+   
+    r = listener.Recognizer()
+    with listener.Microphone() as source:
+        print('Listening') # Telling user that they are being heard
+        r.pause_threshold= 0.5 # Duration for pausing 
+        r.adjust_for_ambient_noise(source, duration=1) 
+        userSpeech = r.listen(source)
+    try: 
+         
+        command = r.recognize_google(userSpeech).lower()
+    
+      
+    except LookupError: # speech is unintelligible
+        print("Could not understand audio")
         command = myCommand();
     return command
-
-def bulb(command):
- if 'on' in command:
-     time.sleep(1)
-     board.write('H')
-     
- elif 'off' in command:
-     time.sleep(1)
-     board.write('L')
- else:
-    time.sleep(1)
-    board.close()
-    sys.exit()
+def larkSpeaks(userSpeech):
+    for line in userSpeech.splitlines():
+        os.system("say " + userSpeech)
+def lark(command):
+      
     
-    
-    
-   
+    if 'hello' in command:
+        
+            larkSpeaks('hello there ')
+    if 'good' in command:
+             larkSpeaks('that is great ')
+          
+    if 'amazing' in command:
+           larkSpeaks(' happy birthday NANDAN ' )
+           webbrowser.open("https://www.youtube.com/watch?v=flMN4ME3isU")
+         
+           
+    if 'goodbye' in command:
+     larkSpeaks('goodbye and have a good day')
+     sys.exit()
 
-
-
-
-time.sleep(2)
-
+larkSpeaks('Hello Fardeen welcome to the lark experience ')  
 while True:
-    bulb(myCommand())
+    lark(myCommand())
